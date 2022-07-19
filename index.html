@@ -1,0 +1,65 @@
+<html>
+
+<head>  
+        <style>
+        *{
+            margin: 1px;
+            padding: 0;
+        }
+        #container{
+            text-align: center;
+            margin-top: 100px;
+            border: 2px dotted red;
+            margin-left: 500px;
+            width: 30vw;
+            border-radius: 50%;
+            padding-bottom: 10px;
+        }
+            .heading{
+                border: 2px solid black;
+                border-radius: 30px;
+            }
+
+        </style>
+</head>
+
+<body>
+    
+    <div id="container">
+
+    </div>
+ 
+    
+
+     
+    <script>
+        const container = document.getElementById("container");
+
+        const request = new XMLHttpRequest();
+        request.open('GET',"https://restcountries.com/v3.1/name/india");
+        request.send();
+        
+
+        //to get response
+        request.addEventListener('load',function(){
+            const [data] = JSON.parse(this.responseText);
+            // console.log(this.responseText);
+             console.log(data);
+            const htmlData = `
+             <h1 > ${data.name.common}</h1>
+             <p >${data.capital}</p>
+             <img src = "${data.flags.png}" alt="INDIA" class="heading">
+             <p >${data.currencies.INR.name} : ${data.currencies.INR.symbol}</p>
+             <p >${data.continents}</p>
+             <p > Population:${data.population}</p>
+             <p > Time-Zone:${data.timezones}</p>
+            </div>`
+             
+            container.insertAdjacentHTML("afterbegin",htmlData);
+
+            
+        })
+    </script>
+</body>
+
+</html>
